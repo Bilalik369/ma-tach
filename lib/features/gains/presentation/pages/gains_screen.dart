@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../models/gains_models.dart';
+import '../widgets/filter_dropdown.dart';
+import '../widgets/gain_item.dart';
+import '../widgets/upcoming_gain_item.dart';
 
 class GainsScreen extends StatefulWidget {
   const GainsScreen({Key? key}) : super(key: key);
@@ -61,9 +64,9 @@ class _GainsScreenState extends State<GainsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5),
+      backgroundColor: const Color(0xFFF6F7F8),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFFf6f7f8),
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
@@ -83,13 +86,13 @@ class _GainsScreenState extends State<GainsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Total des gains section
+            
             Container(
               width: double.infinity,
-              color: Colors.white,
+              color: const Color(0xFFf6f7f8),
               padding: const EdgeInsets.all(24),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
                     'Total des gains à vie',
@@ -114,7 +117,6 @@ class _GainsScreenState extends State<GainsScreen> {
             
             const SizedBox(height: 24),
             
-            // Gains à venir section
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
@@ -129,62 +131,14 @@ class _GainsScreenState extends State<GainsScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  ...upcomingGains.map((gain) => Container(
-                    margin: const EdgeInsets.only(bottom: 12),
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.05),
-                          blurRadius: 4,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '${gain.amount.toStringAsFixed(2)} \$',
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                gain.campaign,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.grey[600],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Text(
-                          gain.dueDate,
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[500],
-                          ),
-                        ),
-                      ],
-                    ),
-                  )).toList(),
+                  ...upcomingGains.map((gain) => UpcomingGainItem(gain: gain)).toList(),
                 ],
               ),
             ),
             
             const SizedBox(height: 32),
             
-            // Historique des gains section
+           
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
@@ -200,55 +154,35 @@ class _GainsScreenState extends State<GainsScreen> {
                   ),
                   const SizedBox(height: 16),
                   
-                  // Filters
+                
                   Row(
                     children: [
-                      _buildFilterDropdown(selectedDateFilter, ['Date', 'Cette semaine', 'Ce mois', 'Cette année']),
+                      FilterDropdown(
+                        value: selectedDateFilter,
+                        items: ['Date', 'Cette semaine', 'Ce mois', 'Cette année'],
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            selectedDateFilter = newValue!;
+                          });
+                        },
+                      ),
                       const SizedBox(width: 16),
-                      _buildFilterDropdown(selectedCampaignFilter, ['Campagne', 'Road Trip', 'Escapade', 'Aventure']),
+                      FilterDropdown(
+                        value: selectedCampaignFilter,
+                        items: ['Campagne', 'Road Trip', 'Escapade', 'Aventure'],
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            selectedCampaignFilter = newValue!;
+                          });
+                        },
+                      ),
                     ],
                   ),
                   
                   const SizedBox(height: 24),
                   
-                  // History items
-                  ...gainsHistory.map((gain) => Container(
-                    margin: const EdgeInsets.only(bottom: 16),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '${gain.amount.toStringAsFixed(2)} \$',
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                gain.campaign,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.grey[600],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Text(
-                          gain.date,
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[500],
-                          ),
-                        ),
-                      ],
-                    ),
-                  )).toList(),
+                   
+                    ...gainsHistory.map((gain) => GainItem(gain: gain)).toList(),
                 ],
               ),
             ),
@@ -260,39 +194,5 @@ class _GainsScreenState extends State<GainsScreen> {
     );
   }
 
-  Widget _buildFilterDropdown(String value, List<String> items) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey[300]!),
-        borderRadius: BorderRadius.circular(6),
-      ),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          value: value,
-          icon: Icon(Icons.keyboard_arrow_down, color: Colors.grey[600], size: 20),
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey[700],
-            fontWeight: FontWeight.w500,
-          ),
-          onChanged: (String? newValue) {
-            setState(() {
-              if (items.contains('Date')) {
-                selectedDateFilter = newValue!;
-              } else {
-                selectedCampaignFilter = newValue!;
-              }
-            });
-          },
-          items: items.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-        ),
-      ),
-    );
-  }
 }
+
