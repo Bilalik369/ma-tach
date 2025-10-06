@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'notifications_screen.dart';
 import '../../../gains/presentation/pages/gains_screen.dart';
+import '../../../admissibilite/presentation/pages/admissibilite_screen.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -11,6 +12,17 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Home'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.description),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const AdmissibiliteScreen(),
+                ),
+              );
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.attach_money),
             onPressed: () {
@@ -54,7 +66,7 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              'Tap the money icon to view gains or notification icon to view notifications',
+              'Tap the document icon for admissibilité, money icon for gains, or notification icon for notifications',
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey,
