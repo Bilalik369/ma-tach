@@ -49,7 +49,7 @@ class HelpSection extends StatelessWidget {
             child: ElevatedButton(
               onPressed: onContactSupport,
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF374151),
+                backgroundColor: const Color(0xFF2E2E48),
                 padding: const EdgeInsets.symmetric(vertical: 14),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),

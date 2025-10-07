@@ -143,7 +143,7 @@ class _AdmissibiliteScreenState extends State<AdmissibiliteScreen> {
                 child: ElevatedButton(
                   onPressed: _handleSubmit,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF374151),
+                    backgroundColor: const Color(0xFF2E2E48),
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),

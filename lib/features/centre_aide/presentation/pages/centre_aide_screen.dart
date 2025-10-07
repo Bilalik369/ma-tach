@@ -49,21 +49,21 @@ class _CentreAideScreenState extends State<CentreAideScreen> {
   }
 
   void _handleQuestionTap(FrequentQuestion question) {
-    // Handle question tap - could navigate to detail page
+   
     print('Question tapped: ${question.question}');
   }
 
   void _handleContactSupport() {
-    // Handle contact support
+  
     print('Contact support');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAFB),
+      backgroundColor:const Color(0xFFf6f7f8),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor:const Color(0xFFf6f7f8),
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
@@ -152,3 +152,4 @@ class _CentreAideScreenState extends State<CentreAideScreen> {
     );
   }
 }
+

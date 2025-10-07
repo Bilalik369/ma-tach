@@ -21,3 +21,4 @@ class HelpCenterData {
     this.searchQuery = '',
   });
 }
+
