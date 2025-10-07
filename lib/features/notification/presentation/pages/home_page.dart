@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'notifications_screen.dart';
 import '../../../gains/presentation/pages/gains_screen.dart';
 import '../../../admissibilite/presentation/pages/admissibilite_screen.dart';
+import '../../../centre_aide/presentation/pages/centre_aide_screen.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -12,6 +13,17 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Home'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.help_outline),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const CentreAideScreen(),
+                ),
+              );
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.description),
             onPressed: () {
@@ -66,7 +78,7 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              'Tap the document icon for admissibilité, money icon for gains, or notification icon for notifications',
+              'Tap the help icon for centre d\'aide, document icon for admissibilité, money icon for gains, or notification icon for notifications',
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey,
