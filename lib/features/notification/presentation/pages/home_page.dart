@@ -3,6 +3,7 @@ import 'notifications_screen.dart';
 import '../../../gains/presentation/pages/gains_screen.dart';
 import '../../../admissibilite/presentation/pages/admissibilite_screen.dart';
 import '../../../centre_aide/presentation/pages/centre_aide_screen.dart';
+import '../../../compte/presentation/pages/compte_screen.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -57,6 +58,17 @@ class HomePage extends StatelessWidget {
               );
             },
           ),
+          IconButton(
+            icon: const Icon(Icons.account_circle),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const CompteScreen(),
+                ),
+              );
+            },
+          ),
         ],
       ),
       body: const Center(
@@ -78,7 +90,7 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              'Tap the help icon for centre d\'aide, document icon for admissibilité, money icon for gains, or notification icon for notifications',
+              'Tap the help icon for centre d\'aide, document icon for admissibilité, money icon for gains, notification icon for notifications, or account icon for compte',
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey,

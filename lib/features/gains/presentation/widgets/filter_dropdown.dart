@@ -15,10 +15,9 @@ class FilterDropdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: Colors.grey[100],
-        border: Border.all(color: Colors.grey[300]!, width: 1),
+        color: Colors.grey[200],
         borderRadius: BorderRadius.circular(4),
       ),
       child: DropdownButtonHideUnderline(
